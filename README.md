@@ -125,11 +125,9 @@
 
 
 ### 이벤트 도출
-![image](https://user-images.githubusercontent.com/487999/79683604-47bc0180-8266-11ea-9212-7e88c9bf9911.png)
 ![image](https://user-images.githubusercontent.com/69283682/97141727-a37dbf00-17a2-11eb-9059-372af954ec82.png)
 
 ### 부적격 이벤트 탈락
-![image](https://user-images.githubusercontent.com/487999/79683612-4b4f8880-8266-11ea-9519-7e084524a462.png)
 ![image](https://user-images.githubusercontent.com/69283682/97143081-52bb9580-17a5-11eb-807f-c730b4da43c7.png)
 
     - 과정중 도출된 잘못된 도메인 이벤트들을 걸러내는 작업을 수행함
