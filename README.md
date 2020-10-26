@@ -128,7 +128,7 @@
 ![image](https://user-images.githubusercontent.com/69283682/97141727-a37dbf00-17a2-11eb-9059-372af954ec82.png)
 
 ### 부적격 이벤트 탈락
-![image](https://user-images.githubusercontent.com/69283682/97143081-52bb9580-17a5-11eb-807f-c730b4da43c7.png)
+![image](https://user-images.githubusercontent.com/69283682/97143708-84812c00-17a6-11eb-8e0c-cefcb743b65e.png)
 
     - 과정중 도출된 잘못된 도메인 이벤트들을 걸러내는 작업을 수행함
         - 지점이 선택됨, 메뉴선택됨, 결제버튼이 클릭됨 :  UI 의 이벤트이지, 업무적인 의미의 이벤트가 아니라서 제외
