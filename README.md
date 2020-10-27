@@ -166,14 +166,16 @@
 
 ![image](https://user-images.githubusercontent.com/69283682/97246120-ee014900-183f-11eb-9b81-622c60fba496.png)
 
+    - 고객이 지점을 선택하여 저장한다 (ok)
     - 고객이 메뉴를 선택하여 주문한다 (ok)
     - 고객이 결제한다 (ok)
-    - 주문이 되면 주문 내역이 입점상점주인에게 전달된다 (ok)
-    - 상점주인이 확인하여 요리해서 배달 출발한다 (ok)
+    - 주문이 되면 주문 내역이 지점에 전달된다 (ok)
+    - 지점에서 확인하여 요리한다 (ok)
+    - 요리가 완료되면  배달 출발한다 (ok)
 
-![image](https://user-images.githubusercontent.com/487999/79684170-47256a00-826a-11ea-9777-e16fafff519a.png)
+![image](https://user-images.githubusercontent.com/69283682/97246445-acbd6900-1840-11eb-81f8-5fe51d3b6a54.png)
     - 고객이 주문을 취소할 수 있다 (ok)
-    - 주문이 취소되면 배달이 취소된다 (ok)
+    - 주문이 취소되면 지점의 요리 대기 목록에서 제거된다 (ok)
     - 고객이 주문상태를 중간중간 조회한다 (View-green sticker 의 추가로 ok) 
     - 주문상태가 바뀔 때 마다 카톡으로 알림을 보낸다 (?)
 
