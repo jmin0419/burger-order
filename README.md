@@ -184,7 +184,7 @@
 
 ### 모델 수정
 
-![image](https://user-images.githubusercontent.com/487999/79684176-4e4c7800-826a-11ea-8deb-b7b053e5d7c6.png)
+![image](https://user-images.githubusercontent.com/69283682/97244058-f60aba00-183a-11eb-809c-77dbc9266728.png)
     
     - 수정된 모델은 모든 요구사항을 커버함.
 
