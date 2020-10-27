@@ -136,7 +136,7 @@
   - 지점에 주문정보 전달됨, 요리 완료됨, 요리목록 제거됨, 주문상태변경 알림 : Policy, 이벤트에 대한 반응이라 제외
 
 ### 액터, 커맨드 부착하여 읽기 좋게
-![image](https://user-images.githubusercontent.com/487999/79683614-4ee30f80-8266-11ea-9a50-68cdff2dcc46.png)
+![image](https://user-images.githubusercontent.com/69283682/97243766-636a1b00-183a-11eb-99d2-91d7fac04334.png)
 
 ### 어그리게잇으로 묶기
 ![image](https://user-images.githubusercontent.com/487999/79683618-52769680-8266-11ea-9c21-48d6812444ba.png)
