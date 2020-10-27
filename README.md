@@ -148,11 +148,6 @@
 ![image](https://user-images.githubusercontent.com/69283682/97243888-a0361200-183a-11eb-91dc-2e29e1db4efd.png)
 
 - OrderBurger의 주문, Pay의 결제이력, Store의 주문처리, selectStore의 지점은 그와 연결된 command와 event들에 의하여 트랜잭션이 유지되어야 하는 단위로 그들끼리 묶어줌
-
-    - 도메인 서열 분리 
-~~-        - Core Domain:  app(front), store : 없어서는 안될 핵심 서비스이며, 연견 Up-time SLA 수준을 99.999% 목표, 배포주기는 app 의 경우 1주일 1회 미만, store 의 경우 1개월 1회 미만
-        - Supporting Domain:   marketing, customer : 경쟁력을 내기위한 서비스이며, SLA 수준은 연간 60% 이상 uptime 목표, 배포주기는 각 팀의 자율이나 표준 스프린트 주기가 1주일 이므로 1주일 1회 이상을 기준으로 함.
-        - General Domain:   pay : 결제서비스로 3rd Party 외부 서비스를 사용하는 것이 경쟁력이 높음 (핑크색으로 이후 전환할 예정)~~
         
 - 도메인 서열 분리
   - Core Domain: Orderburger, store : 없어서는 안될 핵심 서비스이며, 연견 Up-time SLA 수준을 99.999% 목표, 배포주기는 app 의 경우 1주일 1회 미만, store 의 경우 1개월 1회 미만
