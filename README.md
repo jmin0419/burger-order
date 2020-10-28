@@ -217,13 +217,13 @@ cd notification
 mvn spring-boot:run
 
 cd orderBurger
-mvn orderBurger:run
+mvn spring-boot:run
 
 cd pay
 mvn spring-boot:run 
 
 cd selectStore
-mvn selectStore:run
+mvn spring-boot:run
 
 cd store
 mvn spring-boot:run  
