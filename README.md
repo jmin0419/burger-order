@@ -210,42 +210,65 @@
 
 # 구현:
 
-분석/설계 단계에서 도출된 헥사고날 아키텍처에 따라, 각 BC별로 대변되는 마이크로 서비스들을 스프링부트와 파이선으로 구현하였다. 구현한 각 서비스를 로컬에서 실행하는 방법은 아래와 같다 (각자의 포트넘버는 8081 ~ 808n 이다)
+분석/설계 단계에서 도출된 헥사고날 아키텍처에 따라, 각 BC별로 대변되는 마이크로 서비스들을 스프링부트로 구현하였다. 구현한 각 서비스를 로컬에서 실행하는 방법은 아래와 같다 (각자의 포트넘버는 8081 ~ 808n 이다)
 
 ```
-cd app
+cd notification
 mvn spring-boot:run
+
+cd orderBurger
+mvn orderBurger:run
 
 cd pay
 mvn spring-boot:run 
 
+cd selectStore
+mvn selectStore:run
+
 cd store
 mvn spring-boot:run  
 
-cd customer
-python policy-handler.py 
 ```
 
 ## DDD 의 적용
 
-- 각 서비스내에 도출된 핵심 Aggregate Root 객체를 Entity 로 선언하였다: (예시는 pay 마이크로 서비스). 이때 가능한 현업에서 사용하는 언어 (유비쿼터스 랭귀지)를 그대로 사용하려고 노력했다. 하지만, 일부 구현에 있어서 영문이 아닌 경우는 실행이 불가능한 경우가 있기 때문에 계속 사용할 방법은 아닌것 같다. (Maven pom.xml, Kafka의 topic id, FeignClient 의 서비스 id 등은 한글로 식별자를 사용하는 경우 오류가 발생하는 것을 확인하였다)
+- 각 서비스내에 도출된 핵심 Aggregate Root 객체를 Entity 로 선언하였다: (예시는 pay 마이크로 서비스). 이때 가능한 현업에서 사용하는 언어를 그대로 사용하려고 노력했지만 한글 사용시 문제가 발생될 여지가 있어 한글 단어를 영어로 전환하여 진행했다.
 
 ```
-package fooddelivery;
+package newmcdonaldapp;
 
 import javax.persistence.*;
 import org.springframework.beans.BeanUtils;
 import java.util.List;
 
 @Entity
-@Table(name="결제이력_table")
-public class 결제이력 {
+@Table(name="PayHistory_table")
+public class PayHistory {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
-    private String orderId;
-    private Double 금액;
+    private Long orderId;
+    private int price;
+
+
+    @PrePersist
+    public void onPrePersist(){
+        PayApprove payApprove = new PayApprove();
+        BeanUtils.copyProperties(this, payApprove);
+        payApprove.publishAfterCommit();
+
+        try {
+            Thread.currentThread().sleep((long) (400 + Math.random() * 220));
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @PostPersist
+    public void onPostPersist(){
+        System.out.println("**************PayRequest!***********");
+    }
 
     public Long getId() {
         return id;
@@ -254,48 +277,46 @@ public class 결제이력 {
     public void setId(Long id) {
         this.id = id;
     }
-    public String getOrderId() {
+
+    public Long getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(String orderId) {
+    public void setOrderId(Long orderId) {
         this.orderId = orderId;
     }
-    public Double get금액() {
-        return 금액;
+
+    public int getPrice() {
+        return price;
     }
 
-    public void set금액(Double 금액) {
-        this.금액 = 금액;
+    public void setPrice(int price) {
+        this.price = price;
     }
-
 }
 
 ```
 - Entity Pattern 과 Repository Pattern 을 적용하여 JPA 를 통하여 다양한 데이터소스 유형 (RDB or NoSQL) 에 대한 별도의 처리가 없도록 데이터 접근 어댑터를 자동 생성하기 위하여 Spring Data REST 의 RestRepository 를 적용하였다
 ```
-package fooddelivery;
+package newmcdonaldapp;
 
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-public interface 결제이력Repository extends PagingAndSortingRepository<결제이력, Long>{
+public interface PayHistoryRepository extends PagingAndSortingRepository<payHistory, Long>{
 }
 ```
 - 적용 후 REST API 의 테스트
 ```
 # app 서비스의 주문처리
-http localhost:8081/orders item="통닭"
-
-# store 서비스의 배달처리
-http localhost:8083/주문처리s orderId=1
+http localhost:8081/orders burgerName=BigMac orderedQty=3 customerId=1
 
 # 주문 상태 확인
-http localhost:8081/orders/1
+http localhost:8081/ordes/1
 
 ```
 
 
-## 폴리글랏 퍼시스턴스
+~~## 폴리글랏 퍼시스턴스~~
 
 앱프런트 (app) 는 서비스 특성상 많은 사용자의 유입과 상품 정보의 다양한 콘텐츠를 저장해야 하는 특징으로 인해 RDB 보다는 Document DB / NoSQL 계열의 데이터베이스인 Mongo DB 를 사용하기로 하였다. 이를 위해 order 의 선언에는 @Entity 가 아닌 @Document 로 마킹되었으며, 별다른 작업없이 기존의 Entity Pattern 과 Repository Pattern 적용과 데이터베이스 제품의 설정 (application.yml) 만으로 MongoDB 에 부착시켰다
 
@@ -329,7 +350,7 @@ public interface 주문Repository extends JpaRepository<Order, UUID>{
 
 ```
 
-## 폴리글랏 프로그래밍
+~~## 폴리글랏 프로그래밍~~
 
 고객관리 서비스(customer)의 시나리오인 주문상태, 배달상태 변경에 따라 고객에게 카톡메시지 보내는 기능의 구현 파트는 해당 팀이 python 을 이용하여 구현하기로 하였다. 해당 파이썬 구현체는 각 이벤트를 수신하여 처리하는 Kafka consumer 로 구현되었고 코드는 다음과 같다:
 ```
