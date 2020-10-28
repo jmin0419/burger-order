@@ -533,17 +533,15 @@ http localhost:8081/orders burgerName=BigMac orderedQty=4 customerId=3   #Succes
 
 #주문상태 확인
 http localhost:8080/orders     # 주문상태 안바뀜 확인
-![image](https://user-images.githubusercontent.com/69283682/97385623-5f5efb80-1915-11eb-90d1-571df907891d.png)
-![image](https://user-images.githubusercontent.com/69283682/97385995-40149e00-1916-11eb-9b77-917bd95fdc22.png)
+![image](https://user-images.githubusercontent.com/69283682/97387238-f7121900-1918-11eb-8035-b06862144a8b.png)
 
 #상점 서비스 기동
 cd store
 mvn spring-boot:run
 
 #주문상태 확인
-http localhost:8080/orders     # 모든 주문의 상태가 "배송됨"으로 확인
-![image](https://user-images.githubusercontent.com/69283682/97385825-ea3ff600-1915-11eb-9782-c2de669c453b.png)
-![image](https://user-images.githubusercontent.com/69283682/97386025-4c006000-1916-11eb-8a0e-13bce72f55c4.png)
+http localhost:8080/orders     # 모든 주문의 상태가 "InDelivery"로 확인
+![image](https://user-images.githubusercontent.com/69283682/97387276-0729f880-1919-11eb-90fc-959bb5ef285d.png)
 ```
 
 
