@@ -555,7 +555,7 @@ http localhost:8080/orders     # 모든 주문의 상태가 "배송됨"으로 �
 각 구현체들은 각자의 source repository 에 구성되었고, 사용한 CI/CD 플랫폼은 Azure를 사용하였으며, pipeline build script 는 각 프로젝트 폴더의 kubernetes 이하에 deployment.yml, service.yaml 에 포함되었다.
 
 
-## 동기식 호출 / 서킷 브레이킹 / 장애격리
+~~## 동기식 호출 / 서킷 브레이킹 / 장애격리~~
 
 * 서킷 브레이킹 프레임워크의 선택: Spring FeignClient + Hystrix 옵션을 사용하여 구현함
 
@@ -733,7 +733,7 @@ Shortest transaction:	        0.00
 - Retry 의 설정 (istio)
 - Availability 가 높아진 것을 확인 (siege)
 
-### 오토스케일 아웃
+~~### 오토스케일 아웃~~
 앞서 CB 는 시스템을 안정되게 운영할 수 있게 해줬지만 사용자의 요청을 100% 받아들여주지 못했기 때문에 이에 대한 보완책으로 자동화된 확장 기능을 적용하고자 한다. 
 
 
@@ -770,7 +770,7 @@ Concurrency:		       96.02
 ```
 
 
-## 무정지 재배포
+~~## 무정지 재배포~~
 
 * 먼저 무정지 재배포가 100% 되는 것인지 확인하기 위해서 Autoscaler 이나 CB 설정을 제거함
 
