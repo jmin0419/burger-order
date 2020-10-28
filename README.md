@@ -316,72 +316,105 @@ http localhost:8081/ordes/1
 ```
 
 
-~~## 폴리글랏 퍼시스턴스~~
-
-앱프런트 (app) 는 서비스 특성상 많은 사용자의 유입과 상품 정보의 다양한 콘텐츠를 저장해야 하는 특징으로 인해 RDB 보다는 Document DB / NoSQL 계열의 데이터베이스인 Mongo DB 를 사용하기로 하였다. 이를 위해 order 의 선언에는 @Entity 가 아닌 @Document 로 마킹되었으며, 별다른 작업없이 기존의 Entity Pattern 과 Repository Pattern 적용과 데이터베이스 제품의 설정 (application.yml) 만으로 MongoDB 에 부착시켰다
+## 폴리글랏 퍼시스턴스
 
 ```
 # Order.java
 
-package fooddelivery;
+package newmcdonaldapp;
 
-@Document
+import javax.persistence.*;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.BeanUtils;
+import org.springframework.context.ApplicationContext;
+
+import java.util.List;
+import java.util.Optional;
+
+@Entity
+@Table(name="Order_table")
 public class Order {
 
-    private String id; // mongo db 적용시엔 id 는 고정값으로 key가 자동 발급되는 필드기 때문에 @Id 나 @GeneratedValue 를 주지 않아도 된다.
-    private String item;
-    private Integer 수량;
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private Long id;
+    private Long burgerId;
+    private String burgerName;
+    private int orderedQty;
+    private int totalPrice;
+    private Long customerId;
+    private String state = "Created";
 
 }
 
 
-# 주문Repository.java
-package fooddelivery;
+# PayHistoryRepository.java
+package newmcdonaldapp;
 
-public interface 주문Repository extends JpaRepository<Order, UUID>{
+import org.springframework.data.repository.PagingAndSortingRepository;
+
+public interface PayHistoryRepository extends PagingAndSortingRepository<PayHistory, Long>{
+
+
 }
 
-# application.yml
-
-  data:
-    mongodb:
-      host: mongodb.default.svc.cluster.local
-    database: mongo-example
-
 ```
 
-~~## 폴리글랏 프로그래밍~~
+## 폴리글랏 프로그래밍
 
-고객관리 서비스(customer)의 시나리오인 주문상태, 배달상태 변경에 따라 고객에게 카톡메시지 보내는 기능의 구현 파트는 해당 팀이 python 을 이용하여 구현하기로 하였다. 해당 파이썬 구현체는 각 이벤트를 수신하여 처리하는 Kafka consumer 로 구현되었고 코드는 다음과 같다:
+상점관리(요리, 배달 등) 각 이벤트를 수신하여 처리하는 Kafka consumer 로 구현되었고 코드는 다음과 같다:
 ```
-from flask import Flask
-from redis import Redis, RedisError
-from kafka import KafkaConsumer
-import os
-import socket
+ackage newmcdonaldapp;
 
+import javax.persistence.*;
+import org.springframework.beans.BeanUtils;
+import java.util.List;
 
-# To consume latest messages and auto-commit offsets
-consumer = KafkaConsumer('fooddelivery',
-                         group_id='',
-                         bootstrap_servers=['localhost:9092'])
-for message in consumer:
-    print ("%s:%d:%d: key=%s value=%s" % (message.topic, message.partition,
-                                          message.offset, message.key,
-                                          message.value))
+@Entity
+@Table(name="StoreManagement_table")
+public class StoreManagement {
 
-    # 카톡호출 API
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private Long id;
+    private Long orderId;
+    private Long burgerId;
+
+    @PrePersist
+    public void onPrePersist(){
+
+        try {
+            Thread.currentThread().sleep((long) (400 + Math.random() * 220));
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        CookStarted cookStarted = new CookStarted();
+        BeanUtils.copyProperties(this, cookStarted);
+        cookStarted.publishAfterCommit();
+
+        try {
+            Thread.currentThread().sleep((long) (5000 + Math.random() * 220));
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        DeliveryStart deliveryStart = new DeliveryStart();
+        BeanUtils.copyProperties(this, deliveryStart);
+        deliveryStart.publishAfterCommit();
+
+    }
+..
+}
 ```
 
-파이선 애플리케이션을 컴파일하고 실행하기 위한 도커파일은 아래와 같다 (운영단계에서 할일인가? 아니다 여기 까지가 개발자가 할일이다. Immutable Image):
+애플리케이션을 컴파일하고 실행하기 위한 도커파일은 아래와 같다
 ```
-FROM python:2.7-slim
-WORKDIR /app
-ADD . /app
-RUN pip install --trusted-host pypi.python.org -r requirements.txt
-ENV NAME World
-EXPOSE 8090
-CMD ["python", "policy-handler.py"]
+FROM openjdk:8u212-jdk-alpine
+COPY target/*SNAPSHOT.jar app.jar
+EXPOSE 8080
+ENTRYPOINT ["java","-Xmx400M","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar","--spring.profiles.active=docker"]
 ```
 
 
