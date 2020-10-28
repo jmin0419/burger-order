@@ -534,6 +534,7 @@ http localhost:8081/orders burgerName=BigMac orderedQty=4 customerId=3   #Succes
 #주문상태 확인
 http localhost:8080/orders     # 주문상태 안바뀜 확인
 ![image](https://user-images.githubusercontent.com/69283682/97385623-5f5efb80-1915-11eb-90d1-571df907891d.png)
+![image](https://user-images.githubusercontent.com/69283682/97385995-40149e00-1916-11eb-9b77-917bd95fdc22.png)
 
 #상점 서비스 기동
 cd store
@@ -542,6 +543,7 @@ mvn spring-boot:run
 #주문상태 확인
 http localhost:8080/orders     # 모든 주문의 상태가 "배송됨"으로 확인
 ![image](https://user-images.githubusercontent.com/69283682/97385825-ea3ff600-1915-11eb-9782-c2de669c453b.png)
+![image](https://user-images.githubusercontent.com/69283682/97386025-4c006000-1916-11eb-8a0e-13bce72f55c4.png)
 ```
 
 
@@ -550,7 +552,7 @@ http localhost:8080/orders     # 모든 주문의 상태가 "배송됨"으로 �
 ## CI/CD 설정
 
 
-각 구현체들은 각자의 source repository 에 구성되었고, 사용한 CI/CD 플랫폼은 GCP를 사용하였으며, pipeline build script 는 각 프로젝트 폴더 이하에 cloudbuild.yml 에 포함되었다.
+각 구현체들은 각자의 source repository 에 구성되었고, 사용한 CI/CD 플랫폼은 Azure를 사용하였으며, pipeline build script 는 각 프로젝트 폴더의 kubernetes 이하에 deployment.yml, service.yaml 에 포함되었다.
 
 
 ## 동기식 호출 / 서킷 브레이킹 / 장애격리
