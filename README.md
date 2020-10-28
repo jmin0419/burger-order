@@ -579,7 +579,8 @@ http localhost:8080/orders     # 모든 주문의 상태가 "InDelivery"로 확�
 ## CI/CD 설정
 
 
-각 구현체들은 각자의 source repository 에 구성되었고, 사용한 CI/CD 플랫폼은 Azure를 사용하였으며, pipeline build script 는 각 프로젝트 폴더의 kubernetes 이하에 deployment.yml, service.yaml 에 포함되었다.
+![image](https://user-images.githubusercontent.com/69283682/97390932-5411cd00-1921-11eb-8cec-b2b540f27bc0.png)
+
 
 
 ~~## 동기식 호출 / 서킷 브레이킹 / 장애격리~~
