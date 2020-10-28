@@ -541,6 +541,7 @@ mvn spring-boot:run
 
 #주문상태 확인
 http localhost:8080/orders     # 모든 주문의 상태가 "배송됨"으로 확인
+![image](https://user-images.githubusercontent.com/69283682/97385825-ea3ff600-1915-11eb-9782-c2de669c453b.png)
 ```
 
 
