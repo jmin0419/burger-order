@@ -576,12 +576,14 @@ http localhost:8080/orders     # 모든 주문의 상태가 "InDelivery"로 확�
 
 # 운영
 
-## CI/CD 설정
+## CI 설정
 
 
 ![image](https://user-images.githubusercontent.com/69283682/97390932-5411cd00-1921-11eb-8cec-b2b540f27bc0.png)
 
+## CD 설정
 
+![image](https://user-images.githubusercontent.com/69283682/97391041-9cc98600-1921-11eb-8f89-126614869595.png)
 
 ~~## 동기식 호출 / 서킷 브레이킹 / 장애격리~~
 
