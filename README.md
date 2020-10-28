@@ -554,7 +554,7 @@ public class PolicyHandler{
 ```
 상점 시스템은 주문/결제와 완전히 분리되어있으며, 이벤트 수신에 따라 처리되기 때문에, 상점시스템이 유지보수로 인해 잠시 내려간 상태라도 주문을 받는데 문제가 없다
 
-```
+
 # 상점 서비스 (store) 를 잠시 내려놓음 (ctrl+c)
 
 #주문처리
@@ -571,7 +571,7 @@ mvn spring-boot:run
 #주문상태 확인
 http localhost:8080/orders     # 모든 주문의 상태가 "InDelivery"로 확인
 ![image](https://user-images.githubusercontent.com/69283682/97387276-0729f880-1919-11eb-90fc-959bb5ef285d.png)
-```
+
 
 
 # 운영
