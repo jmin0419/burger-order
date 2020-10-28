@@ -533,9 +533,10 @@ http localhost:8081/orders burgerName=BigMac orderedQty=4 customerId=3   #Succes
 
 #주문상태 확인
 http localhost:8080/orders     # 주문상태 안바뀜 확인
+![image](https://user-images.githubusercontent.com/69283682/97385623-5f5efb80-1915-11eb-90d1-571df907891d.png)
 
 #상점 서비스 기동
-cd 상점
+cd store
 mvn spring-boot:run
 
 #주문상태 확인
