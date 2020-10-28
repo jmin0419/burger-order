@@ -578,7 +578,7 @@ http localhost:8080/orders     # 모든 주문의 상태가 "InDelivery"로 확�
 
 ## CI 설정
 
-
+![image](https://user-images.githubusercontent.com/69283682/97391189-fc279600-1921-11eb-9bcf-1536cc846409.png)
 ![image](https://user-images.githubusercontent.com/69283682/97390932-5411cd00-1921-11eb-8cec-b2b540f27bc0.png)
 
 ## CD 설정
