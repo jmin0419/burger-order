@@ -582,7 +582,7 @@ http localhost:8080/orders     # 모든 주문의 상태가 "InDelivery"로 확�
 ![image](https://user-images.githubusercontent.com/69283682/97390932-5411cd00-1921-11eb-8cec-b2b540f27bc0.png)
 
 ## CD 설정
-
+![image](https://user-images.githubusercontent.com/69283682/97391132-d4383280-1921-11eb-8db0-fa458792c3b9.png)
 ![image](https://user-images.githubusercontent.com/69283682/97391041-9cc98600-1921-11eb-8f89-126614869595.png)
 
 ~~## 동기식 호출 / 서킷 브레이킹 / 장애격리~~
@@ -800,7 +800,7 @@ Concurrency:		       96.02
 ```
 
 
-~~## 무정지 재배포~~
+## 무정지 재배포
 
 * 먼저 무정지 재배포가 100% 되는 것인지 확인하기 위해서 Autoscaler 이나 CB 설정을 제거함
 
